@@ -6,14 +6,17 @@
 //
 
 import Testing
+import UIKit
 @testable import Pokedex
 
 struct PokedexTests {
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-        // Swift Testing Documentation
-        // https://developer.apple.com/documentation/testing
+    /// Family name ("Pokemon Solid") y PostScript name ("PokemonSolidNormal") difieren en este archivo,
+    /// y Font.custom(_:size:) solo resuelve por PostScript name. Si este test falla, el .ttf dejó de
+    /// estar en el bundle o UIAppFonts en Info.plist se rompió.
+    @Test func pokemonSolidFontIsRegisteredUnderItsPostScriptName() async throws {
+        let names = UIFont.fontNames(forFamilyName: "Pokemon Solid")
+        #expect(names == ["PokemonSolidNormal"])
     }
 
 }
