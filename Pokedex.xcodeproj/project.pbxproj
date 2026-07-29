@@ -30,12 +30,12 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		930FF887DC5285DB778B92EB /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		930FF887DC5285DB778B92EB /* Exceptions for "Pokedex" folder in "Pokedex" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			target = E0953CBD30111DA200B6ACFC /* Pokedex */;
 			membershipExceptions = (
-				"Info.plist",
+				Info.plist,
 			);
+			target = E0953CBD30111DA200B6ACFC /* Pokedex */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -43,7 +43,7 @@
 		E0953CC030111DA200B6ACFC /* Pokedex */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				930FF887DC5285DB778B92EB /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+				930FF887DC5285DB778B92EB /* Exceptions for "Pokedex" folder in "Pokedex" target */,
 			);
 			path = Pokedex;
 			sourceTree = "<group>";
