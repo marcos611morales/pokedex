@@ -46,4 +46,13 @@ struct PokeAPIClientTests {
         #expect(chain.chain.evolvesTo.first?.species.name == "charmeleon")
         #expect(chain.chain.evolvesTo.first?.evolvesTo.first?.species.name == "charizard")
     }
+    
+    @Test func fetchPokemonTypes() async throws {
+        let client = PokeAPIClient()
+        
+        let types = try await client.fetchPokemonType(name: "fire")
+        #expect(types.name == "fire")
+        #expect(types.damageRelations.doubleDamageFrom.contains { $0.name == "water" })
+        #expect(types.damageRelations.doubleDamageTo.contains { $0.name == "grass" })
+    }
 }
