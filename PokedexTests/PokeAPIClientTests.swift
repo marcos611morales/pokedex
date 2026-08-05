@@ -35,4 +35,15 @@ struct PokeAPIClientTests {
         await #expect(charizard.generation.name == "generation-i")
         
     }
+    
+    @Test func fetchPokemonEvolutionChain() async throws {
+        let client = PokeAPIClient()
+        
+        let species = try await client.fetchSpecies(id: 6)
+        let chain = try await client.fetchEvolutionChain(url: species.evolutionChain.url)
+        
+        #expect(chain.chain.species.name == "charmander")
+        #expect(chain.chain.evolvesTo.first?.species.name == "charmeleon")
+        #expect(chain.chain.evolvesTo.first?.evolvesTo.first?.species.name == "charizard")
+    }
 }
