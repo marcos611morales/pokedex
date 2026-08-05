@@ -10,11 +10,11 @@ protocol PokeAPIClientProtocol {
 struct PokeAPIClient: PokeAPIClientProtocol {
     static let baseURL = URL(string: "https://pokeapi.co/api/v2/")!
 
-    private let session: URLSession
+    private let loader: DataLoading
     private let decoder: JSONDecoder
 
-    init(session: URLSession = .shared) {
-        self.session = session
+    init(loader: DataLoading = CachingDataLoader(cache: DiskCache(directoryName: "APIResponses"))) {
+        self.loader = loader
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         self.decoder = decoder
@@ -41,23 +41,7 @@ struct PokeAPIClient: PokeAPIClientProtocol {
             throw PokeAPIError.invalidURL
         }
 
-        let data: Data
-        let response: URLResponse
-        do {
-            (data, response) = try await session.data(from: url)
-        } catch {
-            throw PokeAPIError.requestFailed(error)
-        }
-
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw PokeAPIError.invalidResponse
-        }
-        if httpResponse.statusCode == 404 {
-            throw PokeAPIError.notFound
-        }
-        guard (200...299).contains(httpResponse.statusCode) else {
-            throw PokeAPIError.invalidResponse
-        }
+        let data = try await loader.data(for: url)
 
         do {
             return try decoder.decode(T.self, from: data)
