@@ -25,4 +25,14 @@ struct PokeAPIClientTests {
             _ = try await client.fetchPokemonDetail(id: 999_999)
         }
     }
+    
+    @Test func fetchPokemonSpeciesCharizard() async throws {
+        let client = PokeAPIClient()
+        
+        let charizard = try await client.fetchSpecies(id: 6)
+        #expect(charizard.name == "charizard")
+        #expect(charizard.isLegendary == false)
+        await #expect(charizard.generation.name == "generation-i")
+        
+    }
 }

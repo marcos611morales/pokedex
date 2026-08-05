@@ -2,6 +2,7 @@ import Foundation
 
 protocol PokeAPIClientProtocol {
     func fetchPokemonDetail(id: Int) async throws -> PokemonDetail
+    func fetchSpecies(id: Int) async throws -> PokemonSpecies
 }
 
 struct PokeAPIClient: PokeAPIClientProtocol {
@@ -19,6 +20,10 @@ struct PokeAPIClient: PokeAPIClientProtocol {
 
     func fetchPokemonDetail(id: Int) async throws -> PokemonDetail {
         try await fetch("pokemon/\(id)")
+    }
+    
+    func fetchSpecies(id: Int) async throws -> PokemonSpecies {
+        try await fetch("pokemon-species/\(id)")
     }
 
     private func fetch<T: Decodable>(_ path: String) async throws -> T {
